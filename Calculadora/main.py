@@ -2,7 +2,6 @@ import sys
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication
 
-
 from main_window import MyWindow, GridButtons
 from display import Display , Info
 from variaveis_configs import ICON_CALCULADORA
@@ -13,8 +12,6 @@ if __name__ == '__main__':
     #criar aplicação
     app = QApplication(sys.argv)
     window = MyWindow()
-
-  
 
     #adicionar icone a janela
     icon = QIcon(str(ICON_CALCULADORA))

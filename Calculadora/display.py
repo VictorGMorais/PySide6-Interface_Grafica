@@ -11,9 +11,11 @@ class Display(QLineEdit):
         
         margins = [TXT_MARGIN for _ in range(4)]  #tamanho das margens
         
-        self.setStyleSheet(f'font-size: {SMALL_SIZE}px;')  #definindo tamanho da fonte
+        #definindo estilo do display
+        self.setStyleSheet(f'font-size: {SMALL_SIZE}px; background-color: #BBDEFB; color: black;') 
+       
         
-        self.setMaximumHeight(SMALL_SIZE * 2)  #definindo tamanho do display
+        self.setMaximumHeight(SMALL_SIZE * 2.2)  #definindo tamanho do display
         
         self.setMaximumWidth(WIDTH)  #definindo largura do display
        

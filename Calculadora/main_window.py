@@ -7,7 +7,7 @@ from variaveis_configs import SMALL_SIZE, isNumOrDot, isEmpyt, CORES_BUTTONS_EXP
 class MyWindow(QMainWindow):
     def __init__(self, parent: QWidget | None = None, *args, **kwargs) -> None:
         super().__init__(parent, *args, **kwargs)
-        self.setStyleSheet("background-color: #333;")
+        self.setStyleSheet("background-color: #1E1E1E;")
 
         #adicionar nome a janela
         self.setWindowTitle('Calculadora')
@@ -52,7 +52,7 @@ class GridButtons(QGridLayout):
             ['7', '8', '9', 'x'],
             ['4', '5', '6', '-'],
             ['1', '2', '3', '+'],
-            [' ', '0', '.', '=']]
+            ['0', '', '.', '=']]
         
         self._make_grid()
 
