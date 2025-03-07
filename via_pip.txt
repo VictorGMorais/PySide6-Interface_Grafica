@@ -4,3 +4,5 @@ pip install --upgrade setuptools wheel
 PySide6
 pip install pyside6
 
+qdarkstyle
+pip install qdarkstyle
