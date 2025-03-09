@@ -58,25 +58,25 @@ TXT_MARGIN = 8
 # """
 
 # Tema Azul Frio & Neutro
-CORES_BUTTONS_EXPECIAIS = """QPushButton {
+CORES_BUTTONS_EXPECIAIS = f"""QPushButton {{
     background-color: #1565C0; /* Azul escuro intenso (botão normal) */
     border: 2px solid #1976D2; /* Azul médio (borda) */
     color: white; /* Branco (texto) */
     padding: 10px 20px;
     font-size: 17px;
     border-radius: 5px;
-}
+}}
 
-QPushButton:hover {
+QPushButton:hover {{
     background-color: #0D47A1; /* Azul mais escuro (hover) */
     border: 2px solid #1976D2; /* Azul médio (borda hover) */
     color: white; /* Branco (texto hover) */
-}
+}}
 
-QPushButton:pressed {
+QPushButton:pressed {{
     background-color: #1E88E5; /* Azul vibrante (pressionado) */
     color: white; /* Branco (texto pressionado) */
-}
+}}
 """
 
 CORES_BUTTONS_NUMERICOS = """QPushButton {
@@ -97,7 +97,15 @@ QPushButton:pressed {
     background-color: #64B5F6; /* Azul mais forte (pressionado) */
     color: black; /* Preto (texto pressionado) */
 }
-"""   
+"""  
+
+
+
+# def cor_geral():
+#     MyWindow().setStyleSheet("background-color: #1E1E1E;")
+#     Display().setStyleSheet(f'font-size: {SMALL_SIZE}px; background-color: #BBDEFB; color: black;')
+
+
 
 # Tema Verde Vivo & Alegre
 # CORES_BUTTONS_EXPECIAIS = """QPushButton {
@@ -162,3 +170,11 @@ def isNumOrDot(txt: str) -> bool:
 
 def isEmpyt(txt: str) -> bool:
     return txt == ''
+
+def isNumber(txt: str) -> bool:
+    try:
+        float(txt)
+        return True
+    except ValueError:
+        return False
+    

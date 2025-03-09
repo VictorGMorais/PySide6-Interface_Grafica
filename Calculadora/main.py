@@ -26,11 +26,12 @@ if __name__ == '__main__':
     window.addWidgetLayout(display)
 
     #grid de botões
-    grid = GridButtons()
+    grid = GridButtons(display, info)
     window.vertical_layout.addLayout(grid)
 
+    
     #ajustar tamanho da janela
-    window.adjustFixedSize()
+    # window.adjustFixedSize()
 
     #mostrar janela
     window.show()

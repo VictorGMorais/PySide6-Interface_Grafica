@@ -29,6 +29,7 @@ class Display(QLineEdit):
 class Info(QLabel):
     def __init__(self, txt: str, parent : QWidget | None = None) -> None:
         super().__init__(txt, parent)
+        self.setStyleSheet(f'font-size: {SMALL_SIZE}px; color: #778899;')  #definindo estilo do display / texto cinza ardozia claro
         
         # self.setStyleSheet(f'font-size: {SMALL_SIZE}px;')  #definindo tamanho da fonte
         
