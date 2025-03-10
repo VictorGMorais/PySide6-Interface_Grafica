@@ -33,15 +33,18 @@ class MyWindow(QMainWindow):
     def addWidgetLayout(self, widget : QWidget):
         self.vertical_layout.addWidget(widget)
 
+
     def adjustFixedSize(self):
         #ultima coisa a ser feita
         self.adjustSize()
         self.setFixedSize(self.width(), self.height())
-        
+
+
 class Button(QPushButton):
     def __init__(self, txt: str, parent : QWidget | None = None) -> None:
         super().__init__(txt, parent)
         self.styleButton()
+
 
     def styleButton(self):
         self.setStyleSheet('font-size: 20px;')
@@ -52,8 +55,8 @@ class Button(QPushButton):
         self.setMaximumSize(85, 75)
         # self.setCheckable(True)  #marca/desmarca
 
+
 class GridButtons(QGridLayout):
-    
     def __init__(self ,display: 'Display', info: 'Info',  parent: QWidget | None = None) -> None:
         super().__init__(parent)
 
@@ -72,9 +75,8 @@ class GridButtons(QGridLayout):
         self._left = None
         self._right = None
         self._operator = None
-
-
         self._make_grid()
+
 
     @property
     def equation(self):
@@ -91,8 +93,6 @@ class GridButtons(QGridLayout):
             for j,coluna in enumerate(linha):
                 button = Button(coluna)
                 
-                
-
                 if not isNumOrDot(coluna) and not isEmpyt(coluna):
                     button.setStyleSheet(CORES_BUTTONS_EXPECIAIS)
                     self._config_special_button(button)
@@ -105,9 +105,11 @@ class GridButtons(QGridLayout):
                 slot = self._make_slot(self._print_button_display, button)
                 self._ConnectClicked(button, slot)
 
+
     def _ConnectClicked(self, button, slot):
         return button.clicked.connect(slot)
     
+
     def _config_special_button(self, button):
         text = button.text()
 
@@ -119,12 +121,17 @@ class GridButtons(QGridLayout):
 
         elif text == '=':
             self._ConnectClicked(button, self._calculate)
+        
+        elif text == '<':
+            self._ConnectClicked(button, self.display.backspace)
     
+
     def _make_slot(self, func, *args, **kwargs):
         @Slot(bool)
         def real_slot(_):
             func(*args, **kwargs)
         return real_slot
+
 
     def _print_button_display(self,button):
         button_text = button.text()
@@ -134,9 +141,12 @@ class GridButtons(QGridLayout):
             return
         self.display.insert(button_text)
     
-    def format_number(self, num: float) -> str:
+
+    def format_number(self, num: float | str ) -> str:
+        if isinstance(num, str):
+            return num  # retorno especifico para OverFlowError
+        
         num = float(num)  # Garante que é um float
-    
         if abs(num) >= 1e10 or (0 < abs(num) < 1e-6):  # Se for muito grande ou pequeno
             return f"{num:.6e}"  # Exibe em notação científica com 6 casas
 
@@ -149,6 +159,7 @@ class GridButtons(QGridLayout):
         self._right = None
         self._operator = None
         self.display.clear()
+
 
     def _operator_click(self, button):
         button_text = button.text()
@@ -164,6 +175,7 @@ class GridButtons(QGridLayout):
         self._operator = button_text
         self.equation = f'{self.format_number(self._left)} {self._operator}'
 
+
     def _calculate(self):
         display_text = self.display.text()
         if not isNumber(display_text) or self._operator is None:
@@ -171,24 +183,36 @@ class GridButtons(QGridLayout):
         
         self._right = float(display_text)
         self.display.clear()
+        self.result = '∞'
 
         if self._operator == '+':
             result = self._left + self._right
+
         elif self._operator == '-':
             result = self._left - self._right
+
         elif self._operator == 'x':
             result = self._left * self._right
+
         elif self._operator == '^':
-            result = self._left ** self._right
+            if abs(self._left) > 1 and abs(self._right) > 500: # limites aproximados
+                result = '∞'
+            else:
+                try:
+                    result = self._left ** self._right
+                except OverflowError:
+                    result = '∞'
+
         elif self._operator == '/':
             if self._right == 0:
                 self._clear_display()
                 self.equation = 'Erro: Divisão por zero'
-
                 return
             result = self._left / self._right
+
         else:
             return
+        
         
         self.equation = f'{self.format_number(self._left)} {self._operator} {self.format_number(self._right)} = {self.format_number(result)}'
         self._left = result

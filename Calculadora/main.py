@@ -30,8 +30,8 @@ if __name__ == '__main__':
     window.vertical_layout.addLayout(grid)
 
     
-    #ajustar tamanho da janela
-    # window.adjustFixedSize()
+    # ajustar tamanho da janela
+    window.adjustFixedSize()
 
     #mostrar janela
     window.show()
